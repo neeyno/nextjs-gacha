@@ -20,16 +20,14 @@ export default function Navbar() {
 
     return (
         <header
-            className={`max-w-6xl border-b border-gray-700 m-auto py-3 px-2 flex justify-between items-center flex-wrap ${
+            className={`max-w-6xl border-b border-stone-600 m-auto py-3 px-2 flex justify-between items-center flex-wrap ${
                 styles.header
             } ${menuOpen ? `${styles.open}` : ""}`}
         >
             <div className="z-30">
-                <h2 className="text-3xl text-gray-100 font-bold sm:px-4">
-                    <a href="/" title="gacha">
-                        NFT gacha
-                    </a>
-                </h2>
+                <Link href="/">
+                    <h2 className="text-3xl text-gray-100 font-bold sm:px-4">NFT gacha</h2>
+                </Link>
             </div>
             <nav>
                 <ul
@@ -38,12 +36,22 @@ export default function Navbar() {
                     } ${menuOpen ? `${styles.open}` : ""}`}
                 >
                     <li className="mb-5 mx-0 sm:my-auto sm:mx-5" title="info">
-                        <Link href="/">
+                        <Link href="/history">
                             <div
                                 className="text-1xs text-gray-100 font-semibold ease-in-out duration-150 hover:text-blue-400"
                                 onClick={() => closeMenu()}
                             >
-                                button?
+                                History
+                            </div>
+                        </Link>
+                    </li>
+                    <li className="mb-5 mx-0 sm:my-auto sm:mx-5" title="info">
+                        <Link href="/info">
+                            <div
+                                className="text-1xs text-gray-100 font-semibold ease-in-out duration-150 hover:text-blue-400"
+                                onClick={() => closeMenu()}
+                            >
+                                Info
                             </div>
                         </Link>
                     </li>

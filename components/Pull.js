@@ -16,7 +16,6 @@ const defaultState = {
 export default function Pull({ gachaAddress, runUpdateUI }) {
     const { error, runContractFunction, isFetching, isLoading } = useWeb3Contract()
     const { isWeb3Enabled, web3 } = useMoralis()
-
     const [modalState, setModalState] = useState(defaultState)
 
     async function runPullFunc(pullType) {
@@ -117,45 +116,37 @@ export default function Pull({ gachaAddress, runUpdateUI }) {
         }
     }, [isWeb3Enabled])
 
+    const style = {
+        wrapper: `w-screen flex items-center justify-center mt-4 px-1 `,
+        box: `group bg-stone-900 border border-stone-700 text-stone-100 w-[40rem] rounded hover:border-stone-600 ease-in-out duration-150`,
+        titleClass: `p-2 flex items-center justify-between font-semibold text-xl border-b border-stone-900 group-hover:border-stone-600 ease-in-out duration-150`,
+        buttonClass: `p-4 grid grid-cols-2 gap-4 text-center mx-auto `,
+        button: `text-stone-100 rounded-sm py-3 cursor-pointer ease-in-out duration-150 border border-stone-700 group-hover:border-stone-600 hover:bg-yellow-500`,
+    }
+
     return (
-        <div className="w-screen flex items-center justify-center mt-2 px-1">
-            <div className="bg-gray-900 text-gray-100 w-[40rem] rounded-2xl p-2 sm:w-[40rem] sm:p-4">
-                <div className="px-2 flex items-center justify-between font-semibold text-xl ">
-                    <h1>Pull Order</h1>
+        <div className={style.wrapper}>
+            <div className={style.box}>
+                <div className={style.titleClass}>
+                    <p>Pull Order</p>
+                    <p>1 pull costs 50 EXT</p>
+                </div>
+                <div className={style.buttonClass}>
                     <button
-                        className="bg-blue-800 rounded-xl py-1 px-4 cursor-pointer ease-in-out duration-150 hover:bg-blue-700"
-                        onClick={() => console.log("Got info")}
+                        className={style.button}
+                        onClick={() => runPullFunc("pullSingle")}
                         disabled={isLoading}
                     >
-                        <span className="text-lg font-semibold sm:text-xl">Info</span>
+                        <span className="text-lg font-semibold sm:text-xl">x 1</span>
                     </button>
-                </div>
-                <div className="mb-2 mt-4 mx-auto">
-                    <div className="grid grid-cols-2 gap-2 text-center text-base">
-                        <label className="text-gray-300">x1 pull</label>
-                        <label className="text-gray-300">x10 pull</label>
-                        {/* <label>Withdraw</label> */}
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 py-2 text-center text-xl sm:text-2xl rounded-2xl border border-gray-700 ease-in-out duration-150 hover:border-gray-500">
-                        {/* <span className="my-auto">name</span> */}
-                        {/* <span className="my-auto  text-base sm:text-2xl">0</span> */}
 
-                        <button
-                            className="bg-blue-800 rounded-xl py-1 mx-2 cursor-pointer ease-in-out duration-150 hover:bg-blue-700"
-                            onClick={() => runPullFunc("pullSingle")}
-                            disabled={isLoading}
-                        >
-                            <span className="text-lg font-semibold sm:text-xl">x1</span>
-                        </button>
-
-                        <button
-                            className="bg-blue-800 rounded-xl py-1 mx-2 cursor-pointer ease-in-out duration-150 hover:bg-blue-700"
-                            onClick={() => runPullFunc("pullMulti")}
-                            disabled={isLoading}
-                        >
-                            <span className="text-lg font-semibold sm:text-xl">x10</span>
-                        </button>
-                    </div>
+                    <button
+                        className={style.button}
+                        onClick={() => runPullFunc("pullMulti")}
+                        disabled={isLoading}
+                    >
+                        <span className="text-lg font-semibold sm:text-xl">x 10</span>
+                    </button>
                 </div>
             </div>
 

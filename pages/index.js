@@ -1,17 +1,13 @@
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
-
 import Pull from "../components/Pull"
 import Balance from "../components/Balance"
-import History from "../components/History"
-
-import tokenAbi from "../lib/tokenAbi.json"
-import nftAbi from "../lib/nftAbi.json"
-import contractAddresses from "../lib/contractAddresses.json"
 
 import { useState, useEffect } from "react"
 import { useWeb3Contract, useMoralis } from "react-moralis"
 import { ethers } from "ethers"
+
+import tokenAbi from "../lib/tokenAbi.json"
+import nftAbi from "../lib/nftAbi.json"
+import contractAddresses from "../lib/contractAddresses.json"
 
 export default function Home() {
     const { error, runContractFunction } = useWeb3Contract()
@@ -99,7 +95,6 @@ export default function Home() {
 
     return (
         <div className="">
-            <Navbar />
             <Balance
                 tokenAddress={tokenAddress}
                 nftBalances={nftBalances}
@@ -107,8 +102,6 @@ export default function Home() {
                 runUpdateUI={updateUI}
             />
             <Pull gachaAddress={gachaAddress} runUpdateUI={updateUI} />
-            <History />
-            <Footer />
         </div>
     )
 }
