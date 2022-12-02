@@ -16,6 +16,7 @@
 
 .menu.open {
     display: block;
+    border-bottom: 1px solid #44403c;
 }
 /* 
 .brand.open {

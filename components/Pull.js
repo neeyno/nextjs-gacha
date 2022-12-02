@@ -10,20 +10,32 @@ const defaultState = {
     status: 0,
     title: "default",
     data: [],
-    type: 0,
+    message: "",
 }
 
-export default function Pull({ gachaAddress, runUpdateUI }) {
+export default function Pull({ gachaAddress, runUpdateUI, isConnected }) {
     const { error, runContractFunction, isFetching, isLoading } = useWeb3Contract()
     const { isWeb3Enabled, web3 } = useMoralis()
     const [modalState, setModalState] = useState(defaultState)
 
     async function runPullFunc(pullType) {
+        if (!isWeb3Enabled) {
+            return handleModalError(new Error(`Please Connect Wallet!`))
+        }
+        if (!isConnected()) {
+            return handleModalError(
+                new Error(
+                    `Network not supported!\nPlease,change network to the: Goerli, Mumbai, Polygon mainnet`
+                )
+            )
+        }
+
         setModalState((prevObj) => {
             return {
                 ...prevObj,
                 status: 1,
                 title: "Confirm transaction",
+                message: `Confirm spending ${pullType === "pullMulti" ? "500" : "50"} EXT`,
             }
         })
         const pullParam = {
@@ -43,6 +55,14 @@ export default function Pull({ gachaAddress, runUpdateUI }) {
     }
 
     async function handlePullRequest(tx) {
+        setModalState((prevObj) => {
+            return {
+                ...prevObj,
+                status: 2,
+                title: `Receive confirmation`, //txEvent.args.requestId.toString(),
+                message: `Wait for order confirmation`,
+            }
+        })
         try {
             const txReceipt = await tx.wait(1)
             const txEvent = txReceipt.events.find((element) => element.event === "PullRequested")
@@ -51,8 +71,8 @@ export default function Pull({ gachaAddress, runUpdateUI }) {
             setModalState((prevObj) => {
                 return {
                     ...prevObj,
-                    status: 2,
-                    title: `Receive request confirmation`, //txEvent.args.requestId.toString(),
+                    status: 3,
+                    message: `Wait for order confirmation`,
                 }
             })
             handlePullFulfill(txEvent)
@@ -80,8 +100,9 @@ export default function Pull({ gachaAddress, runUpdateUI }) {
                 setModalState((prevObj) => {
                     return {
                         ...prevObj,
-                        status: 3,
-                        title: "Randomness fulfilled!",
+                        status: 4,
+                        title: "Success",
+                        message: "Randomness fulfilled!",
                         data: result[2],
                     }
                 })
@@ -104,8 +125,9 @@ export default function Pull({ gachaAddress, runUpdateUI }) {
         setModalState((prevObj) => {
             return {
                 ...prevObj,
-                status: 3,
-                title: error.message,
+                status: 5,
+                title: "Error",
+                message: error.message,
             }
         })
     }
@@ -121,7 +143,7 @@ export default function Pull({ gachaAddress, runUpdateUI }) {
         box: `group bg-stone-900 border border-stone-700 text-stone-100 w-[40rem] rounded hover:border-stone-600 ease-in-out duration-150`,
         titleClass: `p-2 flex items-center justify-between font-semibold text-xl border-b border-stone-900 group-hover:border-stone-600 ease-in-out duration-150`,
         buttonClass: `p-4 grid grid-cols-2 gap-4 text-center mx-auto `,
-        button: `text-stone-100 rounded-sm py-3 cursor-pointer ease-in-out duration-150 border border-stone-700 group-hover:border-stone-600 hover:bg-yellow-500`,
+        button: `text-stone-100 rounded py-3 cursor-pointer ease-in-out duration-150 border border-stone-700 group-hover:border-stone-600 hover:bg-stone-100 hover:text-stone-900`,
     }
 
     return (
@@ -129,7 +151,10 @@ export default function Pull({ gachaAddress, runUpdateUI }) {
             <div className={style.box}>
                 <div className={style.titleClass}>
                     <p>Pull Order</p>
-                    <p>1 pull costs 50 EXT</p>
+                    <p className="text-base font-normal">
+                        1 pull costs{" "}
+                        <span className="text-base font-bold text-yellow-500">50 EXT</span>
+                    </p>
                 </div>
                 <div className={style.buttonClass}>
                     <button

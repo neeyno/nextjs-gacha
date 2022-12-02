@@ -4,48 +4,63 @@ import { useState, useEffect } from "react"
 import { useWeb3Contract, useMoralis } from "react-moralis"
 import { ethers } from "ethers"
 
-import tokenAbi from "../lib/tokenAbi.json"
+import gachaAbi from "../lib/gachaAbi.json"
 import TransactionModal from "./TransactionModal"
 
 const defaultState = {
     status: 0,
     title: "default",
     data: [],
-    type: 0,
+    message: "",
 }
 
-export default function Balance({ tokenAddress, nftBalances, tokenBalance, runUpdateUI }) {
-    const { error, runContractFunction, isLoading } = useWeb3Contract()
+export default function Balance({
+    gachaAddress,
+    nftBalances,
+    tokenBalance,
+    runUpdateUI,
+    isConnected,
+}) {
+    const { runContractFunction, isLoading } = useWeb3Contract()
     const { isWeb3Enabled, account, Moralis } = useMoralis()
 
     const [modalState, setModalState] = useState(defaultState)
 
-    async function runMintTokenTo(address) {
+    async function runBuyToken(addressTo) {
+        if (!isWeb3Enabled) {
+            return handleModalError(new Error(`Please Connect Wallet!`))
+        }
+        if (!isConnected()) {
+            return handleModalError(
+                new Error(
+                    `Network not supported!\nPlease,change network to the: Goerli, Mumbai, Polygon mainnet`
+                )
+            )
+        }
+
         setModalState((prevObj) => {
             return {
                 ...prevObj,
                 status: 1,
                 title: "Confirm transaction",
+                message: "Confirm buying 1350 EXT",
             }
         })
-        const mintAmount = ethers.utils.parseUnits("40", 18)
+        //const mintAmount = ethers.utils.parseUnits("1150", 18)
         const mintParam = {
-            abi: tokenAbi,
-            contractAddress: tokenAddress,
-            functionName: "mint",
-            params: {
-                to: address,
-                amount: mintAmount,
-            },
-            msgValue: ethers.utils.parseUnits("0.01", 18),
+            abi: gachaAbi,
+            contractAddress: gachaAddress,
+            functionName: "buyTokenPack",
+            params: {},
+            // to: addressTo,
+            // amount: mintAmount,
+            //},
+            msgValue: ethers.utils.parseUnits("0.1", 18),
         }
         await runContractFunction({
             params: mintParam,
             onSuccess: handleMint,
             onError: (error) => {
-                if (!isWeb3Enabled) {
-                    Moralis.enableWeb3()
-                }
                 console.log(error)
                 handleModalError(error)
             },
@@ -53,22 +68,23 @@ export default function Balance({ tokenAddress, nftBalances, tokenBalance, runUp
     }
 
     async function handleMint(tx) {
+        setModalState((prevObj) => {
+            return {
+                ...prevObj,
+                status: 3,
+                title: `Receive confirmations`, //txEvent.args.requestId.toString(),
+            }
+        })
         try {
-            setModalState((prevObj) => {
-                return {
-                    ...prevObj,
-                    status: 2,
-                    title: `Receive confirmations`, //txEvent.args.requestId.toString(),
-                }
-            })
             const txReceipt = await tx.wait(1)
             console.log(txReceipt)
             await tx.wait(1)
             setModalState((prevObj) => {
                 return {
                     ...prevObj,
-                    status: 3,
-                    title: `Success!`,
+                    status: 4,
+                    title: `Success`,
+                    message: `You've bought 1350 tokens!`,
                 }
             })
         } catch (error) {
@@ -88,8 +104,9 @@ export default function Balance({ tokenAddress, nftBalances, tokenBalance, runUp
         setModalState((prevObj) => {
             return {
                 ...prevObj,
-                status: 3,
-                title: error.message,
+                status: 5,
+                title: "Error",
+                message: error.message,
             }
         })
     }
@@ -120,11 +137,11 @@ export default function Balance({ tokenAddress, nftBalances, tokenBalance, runUp
         box: `group bg-stone-900 border border-stone-700 text-stone-100 w-[40rem] rounded hover:border-stone-600 ease-in-out duration-150`,
         titleClass: `p-2 flex items-center justify-between font-semibold text-xl border-b border-stone-900 group-hover:border-stone-600 ease-in-out duration-150`,
         tokenBox: `bg-stone-100 rounded-sm outline-1 outline-stone-100 outline`,
-        tokenBalance: `px-2 py-1 text-stone-900`,
-        tokenButton: `bg-stone-900 text-stone-100 rounded-sm px-2 cursor-pointer ease-in-out duration-150 hover:bg-yellow-500`,
+        tokenBalance: `px-2 py-auto text-stone-900 text-base`,
+        tokenButton: `bg-stone-900 text-stone-100 rounded-sm px-2 cursor-pointer ease-in-out duration-150 hover:bg-yellow-500 hover:text-stone-900`,
         nftClass: `p-2 text-center  font-semibold text-xl`,
         nftImages: `pt-4 mb-2 grid grid-cols-3 gap-0 items-center justify-center`,
-        nftBalances: `pb-2 grid grid-cols-3 gap-0 text-sm`,
+        nftBalances: `pb-2 grid grid-cols-3 gap-0 text-sm font-normal`,
     }
 
     return (
@@ -136,15 +153,15 @@ export default function Balance({ tokenAddress, nftBalances, tokenBalance, runUp
                         <span className={style.tokenBalance}>{`${tokenBalance} EXT`}</span>
                         <button
                             className={style.tokenButton}
-                            onClick={() => runMintTokenTo(account)}
+                            onClick={() => runBuyToken(account)}
                             disabled={isLoading}
                         >
-                            <span className="text-lg font-semibold sm:text-xl">{"+"}</span>
+                            <span className="text-lg sm:text-xl">{"BUY"}</span>
                         </button>
                     </div>
                 </div>
                 <div className={style.nftClass}>
-                    <h1>NFT avaliable</h1>
+                    <h1 className="tracking-wider">NFT avaliable</h1>
                     <ul className={style.nftImages}>{nftImgElem}</ul>
                     {nftBalances && <ul className={style.nftBalances}>{nftListElem}</ul>}
                 </div>

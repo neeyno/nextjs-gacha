@@ -1,36 +1,60 @@
 //import styles from "../styles/Footer.module.css"
 
+import Stepper from "./Stepper"
+
 export default function TransactionModal({ state, close }) {
     const listItems =
         state.data.map((value, i) => {
             return (
-                <div className="px-2 flex justify-center font-semibold text-xl" key={i}>
-                    {value.toString()}
-                </div>
+                <li
+                    className="mx-auto my-2 h-10 w-10 border border-stone-700 rounded-full overflow-clip"
+                    key={i}
+                >
+                    <img id="img" src={`./images/nft-${value}.png`} height="50" width="50" />
+                </li>
             )
         }) || null
 
+    const style = {
+        wrapper: `absolute inset-0 bg-stone-600/[.5] flex p-1`,
+        modalClass: `group mx-auto mt-52 mb-auto bg-stone-900 text-stone-100 w-full rounded sm:w-[40rem] border border-stone-700 hover:border-stone-600 ease-in-out duration-150`,
+        box: ` bg-stone-900 border border-stone-700 text-stone-100 rounded `,
+        titleClass: `p-2 flex items-center justify-between font-semibold text-xl border-b border-stone-900 group-hover:border-stone-600 ease-in-out duration-150`,
+    }
+
     return (
-        <div className="absolute inset-0 bg-gray-400/[.5] flex p-1">
-            <div className="mx-auto mt-56 mb-auto bg-gray-900 text-gray-100 w-[40rem] rounded-sm p-2 sm:w-[40rem] sm:p-4">
-                <div className="px-2 flex items-center justify-between font-semibold text-xl ">
-                    {state.status}
+        <div className={style.wrapper}>
+            <div className={style.modalClass}>
+                <div className={style.titleClass}>
+                    <p>{state.title}</p>
                 </div>
-                <div className="px-2 flex justify-center font-semibold text-xl ">{state.title}</div>
-                {listItems && (
-                    <div className="px-2 flex justify-center font-semibold text-xl">
-                        {listItems}
+
+                {state.status != 5 && (
+                    <div className="p-2">
+                        <Stepper status={state.status} />
                     </div>
                 )}
-                <div className="px-2 flex justify-center font-semibold text-xl ">
+                {/* <div className="p-2 flex justify-center ">{state.status} Loading...</div> */}
+                {state.data && (
+                    <ul className="list-none p-2 grid grid-cols-5 sm:flex">{listItems}</ul>
+                )}
+                <div className="p-2 justify-center text-center">
+                    <p
+                        id={state.status === 5 ? "error" : ""}
+                        className="font-medium tracking-wider text-base text-ellipsis overflow-hidden "
+                    >
+                        {state.message}
+                    </p>
+                </div>
+                <div className="p-2 flex justify-center font-semibold text-xl  ">
                     <button
-                        className={`rounded-sm py-1 px-2  ease-in-out duration-150 ${
-                            state.status === 3
-                                ? "cursor-pointer bg-blue-800 hover:bg-blue-700"
-                                : "bg-gray-500 text-gray-300"
+                        className={`rounded py-1 px-4 border border-stone-600  ${
+                            state.status < 4
+                                ? "bg-stone-700 text-stone-400"
+                                : "text-stone-900 bg-stone-100 cursor-pointer ease-in-out duration-150 hover:bg-yellow-500"
                         }`}
                         onClick={() => close()}
-                        disabled={state.status !== 3}
+                        disabled={state.status < 4}
                     >
                         <span className="text-lg font-semibold sm:text-xl">Close</span>
                     </button>

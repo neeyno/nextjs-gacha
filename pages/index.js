@@ -81,6 +81,13 @@ export default function Home() {
         })
     }
 
+    function isConnected() {
+        if (gachaAddress != null) {
+            return true
+        }
+        return false
+    }
+
     function updateUI() {
         updateNftBalances(gachaAddress)
         updateTokenBalance(account)
@@ -88,20 +95,20 @@ export default function Home() {
 
     useEffect(() => {
         if (isWeb3Enabled) {
-            updateNftBalances(gachaAddress)
-            updateTokenBalance(account)
+            updateUI()
         }
     }, [isWeb3Enabled, account])
 
     return (
         <div className="">
             <Balance
-                tokenAddress={tokenAddress}
+                gachaAddress={gachaAddress}
                 nftBalances={nftBalances}
                 tokenBalance={tokenBalance}
                 runUpdateUI={updateUI}
+                isConnected={isConnected}
             />
-            <Pull gachaAddress={gachaAddress} runUpdateUI={updateUI} />
+            <Pull gachaAddress={gachaAddress} runUpdateUI={updateUI} isConnected={isConnected} />
         </div>
     )
 }

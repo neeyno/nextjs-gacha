@@ -18,7 +18,10 @@ export default function Records({ events }) {
             <div className={style.box}>
                 <div className={style.titleClass}>
                     <p>Order history</p>
-                    <button className={style.tokenBox} onClick={() => runMintTokenTo(account)}>
+                    <button
+                        className={style.tokenBox}
+                        onClick={() => console.log("Not implemented!!")}
+                    >
                         <span className={""}>Refresh</span>
                     </button>
                 </div>

@@ -1,12 +1,18 @@
 import React from "react"
 import { useState } from "react"
+import { useRouter } from "next/router"
 
 import Link from "next/link"
 import { ConnectButton } from "web3uikit"
 import styles from "../styles/Navbar.module.css"
 
 export default function Navbar() {
+    const router = useRouter()
+
     const [menuOpen, SetMenuOpen] = useState(false)
+    //const [activeTab, setActiveTab] = useState("")
+
+    router.pathname == "/"
 
     const closeMenu = () => {
         if (!menuOpen) {
@@ -18,37 +24,54 @@ export default function Navbar() {
         }
     }
 
+    const active = "rounded outline outline-1 outline-stone-600"
+    const notActive = "delay-50 rounded hover:outline outline-1 outline-stone-100"
+
     return (
         <header
-            className={`max-w-6xl border-b border-stone-600 m-auto py-3 px-2 flex justify-between items-center flex-wrap ${
+            className={`max-w-6xl border-b border-stone-600 m-auto py-2 px-2 flex justify-between items-center flex-wrap ${
                 styles.header
             } ${menuOpen ? `${styles.open}` : ""}`}
         >
             <div className="z-30">
                 <Link href="/">
-                    <h2 className="text-3xl text-gray-100 font-bold sm:px-4">NFT gacha</h2>
+                    <h2
+                        className={`tracking-widest text-xl font-bold my-auto px-3 py-1 ease-in-out duration-150 text-stone-100 ${
+                            router.asPath == "/" ? active : notActive
+                        }`}
+                        onClick={() => {
+                            if (router.asPath == "/") router.reload("/")
+                            closeMenu()
+                        }}
+                    >
+                        NFT gacha
+                    </h2>
                 </Link>
             </div>
             <nav>
                 <ul
-                    className={`z-20 menu hidden absolute left-0 top-0 m-0 py-20 pt-16 px-4 bg-[#0a0f18] w-full h-52 sm:w-unset sm:h-auto sm:bg-transparent sm:flex sm:py-0 sm:static sm:left-unset sm:top-unset ${
+                    className={`z-20 menu hidden absolute left-0 top-0 m-0 py-20 pt-16 px-4 bg-stone-900/[.95] w-full h-56 sm:w-unset sm:h-auto sm:bg-transparent sm:flex sm:py-0 sm:static sm:left-unset sm:top-unset ${
                         styles.menu
                     } ${menuOpen ? `${styles.open}` : ""}`}
                 >
-                    <li className="mb-5 mx-0 sm:my-auto sm:mx-5" title="info">
+                    <li className="text-center w-24 mb-5 mx-0 sm:my-auto sm:mx-5" title="history">
                         <Link href="/history">
                             <div
-                                className="text-1xs text-gray-100 font-semibold ease-in-out duration-150 hover:text-blue-400"
+                                className={`text-base py-1 font-semibold ease-in-out duration-150 text-stone-100 ${
+                                    router.asPath == "/history" ? active : notActive
+                                }`}
                                 onClick={() => closeMenu()}
                             >
                                 History
                             </div>
                         </Link>
                     </li>
-                    <li className="mb-5 mx-0 sm:my-auto sm:mx-5" title="info">
+                    <li className=" text-center w-16 mb-5 mx-0 sm:my-auto sm:mx-5" title="info">
                         <Link href="/info">
                             <div
-                                className="text-1xs text-gray-100 font-semibold ease-in-out duration-150 hover:text-blue-400"
+                                className={`text-base py-1 font-semibold ease-in-out duration-150 text-stone-100 ${
+                                    router.asPath == "/info" ? active : notActive
+                                }`}
                                 onClick={() => closeMenu()}
                             >
                                 Info
@@ -62,14 +85,14 @@ export default function Navbar() {
                 </ul>
             </nav>
             <div
-                className={`z-30 flex flex-col justify-center items-center sm:hidden ${
+                className={`z-30 my-auto flex flex-col justify-center items-center sm:hidden ${
                     styles.hamburger
                 } ${menuOpen ? `${styles.open}` : ""}`}
                 onClick={() => SetMenuOpen(!menuOpen)}
             >
-                <span className="h-0.5 w-7 mb-1.5 bg-gray-100"></span>
-                <span className="h-0.5 w-7 mb-1.5 bg-gray-100"></span>
-                <span className="h-0.5 w-7 mb-1.5 bg-gray-100"></span>
+                <span className="h-0.5 w-7 mb-1.5 bg-stone-100"></span>
+                <span className="h-0.5 w-7 mb-1.5 bg-stone-100"></span>
+                <span className="h-0.5 w-7 mb-1 bg-stone-100"></span>
             </div>
         </header>
     )

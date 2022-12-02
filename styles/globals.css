@@ -23,8 +23,8 @@ a {
 * {
   box-sizing: border-box;
   font-family: 'Orbitron', 'Helvetica Neue', sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.1em;
+  /* font-weight: 400; */
+  letter-spacing: 0.05em; 
 }
 
 #img {
@@ -33,6 +33,10 @@ a {
   /* -webkit-box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.2);
   -moz-box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.2);
   box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.2); */
+}
+
+#error {
+  font-family: sans-serif,'Helvetica Neue';
 }
 
 /* @media (prefers-color-scheme: dark) {
