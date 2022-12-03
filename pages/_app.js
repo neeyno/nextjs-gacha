@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
                 <Head>
                     <title>Decentralized NFT gacha App</title>
                     <meta name="description" content="Decentralized NFT gacha App" />
-                    <link rel="icon" href="./favicon.ico" />
+                    <link rel="icon" href="./nft-icon.png" />
                     {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
                     <link
