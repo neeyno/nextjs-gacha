@@ -43,7 +43,7 @@ export default function Balance({
                 ...prevObj,
                 status: 1,
                 title: "Confirm transaction",
-                message: "Confirm buying 1350 EXT",
+                message: "Confirm buying 1350 EXT token pack",
             }
         })
         //const mintAmount = ethers.utils.parseUnits("1150", 18)
@@ -84,7 +84,7 @@ export default function Balance({
                     ...prevObj,
                     status: 4,
                     title: `Success`,
-                    message: `You've bought 1350 tokens!`,
+                    message: `You've bought 1350 EXT!`,
                 }
             })
         } catch (error) {

@@ -94,7 +94,7 @@ export default function Home() {
     }
 
     useEffect(() => {
-        if (isWeb3Enabled) {
+        if (gachaAddress) {
             updateUI()
         }
     }, [isWeb3Enabled, account])

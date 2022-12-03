@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { useWeb3Contract, useMoralis } from "react-moralis"
-//import { useNotification } from "web3uikit"
 import { ethers } from "ethers"
 
 import gachaAbi from "../lib/gachaAbi.json"
@@ -25,7 +24,7 @@ export default function Pull({ gachaAddress, runUpdateUI, isConnected }) {
         if (!isConnected()) {
             return handleModalError(
                 new Error(
-                    `Network not supported!\nPlease,change network to the: Goerli, Mumbai, Polygon mainnet`
+                    `Network not supported!\nPlease,change network to: Goerli, Mumbai, Polygon mainnet`
                 )
             )
         }
@@ -60,7 +59,7 @@ export default function Pull({ gachaAddress, runUpdateUI, isConnected }) {
                 ...prevObj,
                 status: 2,
                 title: `Receive confirmation`, //txEvent.args.requestId.toString(),
-                message: `Wait for order confirmation`,
+                message: `Wait for order confirmation...`,
             }
         })
         try {
@@ -72,7 +71,7 @@ export default function Pull({ gachaAddress, runUpdateUI, isConnected }) {
                 return {
                     ...prevObj,
                     status: 3,
-                    message: `Wait for order confirmation`,
+                    message: `Wait for order confirmation...`,
                 }
             })
             handlePullFulfill(txEvent)
@@ -132,11 +131,11 @@ export default function Pull({ gachaAddress, runUpdateUI, isConnected }) {
         })
     }
 
-    useEffect(() => {
-        if (isWeb3Enabled) {
-            //updateUI
-        }
-    }, [isWeb3Enabled])
+    // useEffect(() => {
+    //     if (isWeb3Enabled) {
+    //         //updateUI
+    //     }
+    // }, [isWeb3Enabled])
 
     const style = {
         wrapper: `w-screen flex items-center justify-center mt-4 px-1 `,

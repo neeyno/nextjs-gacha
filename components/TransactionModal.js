@@ -46,9 +46,9 @@ export default function TransactionModal({ state, close }) {
                         {state.message}
                     </p>
                 </div>
-                <div className="p-2 flex justify-center font-semibold text-xl  ">
+                <div className="p-2 my-2 flex justify-center font-semibold text-xl  ">
                     <button
-                        className={`rounded py-1 px-4 border border-stone-600  ${
+                        className={`rounded  py-1 px-4 border border-stone-600  ${
                             state.status < 4
                                 ? "bg-stone-700 text-stone-400"
                                 : "text-stone-900 bg-stone-100 cursor-pointer ease-in-out duration-150 hover:bg-yellow-500"

@@ -6,6 +6,11 @@
 /* Google Font */
 /* @import url('https://fonts.googleapis.com/css2?family=Zen+Dots:wght@100;300;400;500;700;900&display=swap'); */
 
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/fonts/Orbitron-VariableFont_wght.ttf');
+}
+
 
 html,
 body {
@@ -30,13 +35,12 @@ a {
 #img {
   scale: 125%;
   object-position: 0.5px 2px;
-  /* -webkit-box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.2);
-  -moz-box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, 0.2); */
 }
 
 #error {
   font-family: sans-serif,'Helvetica Neue';
+  color: #ef4444;
+
 }
 
 /* @media (prefers-color-scheme: dark) {

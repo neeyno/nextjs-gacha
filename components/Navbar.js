@@ -12,7 +12,7 @@ export default function Navbar() {
     const [menuOpen, SetMenuOpen] = useState(false)
     //const [activeTab, setActiveTab] = useState("")
 
-    router.pathname == "/"
+    // router.pathname == "/"
 
     const closeMenu = () => {
         if (!menuOpen) {
@@ -33,9 +33,9 @@ export default function Navbar() {
                 styles.header
             } ${menuOpen ? `${styles.open}` : ""}`}
         >
-            <div className="z-30">
+            <div className="z-30" title="NFT gacha">
                 <Link href="/">
-                    <h2
+                    <a
                         className={`tracking-widest text-xl font-bold my-auto px-3 py-1 ease-in-out duration-150 text-stone-100 ${
                             router.asPath == "/" ? active : notActive
                         }`}
@@ -45,7 +45,7 @@ export default function Navbar() {
                         }}
                     >
                         NFT gacha
-                    </h2>
+                    </a>
                 </Link>
             </div>
             <nav>
@@ -56,26 +56,26 @@ export default function Navbar() {
                 >
                     <li className="text-center w-24 mb-5 mx-0 sm:my-auto sm:mx-5" title="history">
                         <Link href="/history">
-                            <div
-                                className={`text-base py-1 font-semibold ease-in-out duration-150 text-stone-100 ${
+                            <a
+                                className={`text-base py-1 px-2 font-semibold ease-in-out duration-150 text-stone-100 ${
                                     router.asPath == "/history" ? active : notActive
                                 }`}
                                 onClick={() => closeMenu()}
                             >
                                 History
-                            </div>
+                            </a>
                         </Link>
                     </li>
                     <li className=" text-center w-16 mb-5 mx-0 sm:my-auto sm:mx-5" title="info">
                         <Link href="/info">
-                            <div
-                                className={`text-base py-1 font-semibold ease-in-out duration-150 text-stone-100 ${
+                            <a
+                                className={`text-base py-1 px-2 font-semibold ease-in-out duration-150 text-stone-100 ${
                                     router.asPath == "/info" ? active : notActive
                                 }`}
                                 onClick={() => closeMenu()}
                             >
                                 Info
-                            </div>
+                            </a>
                         </Link>
                     </li>
 

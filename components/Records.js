@@ -7,7 +7,7 @@ export default function Records({ events }) {
         titleClass: `p-2 flex items-center justify-between font-semibold text-xl border-b border-stone-900 group-hover:border-stone-600 ease-in-out duration-150`,
         tokenBox: `rounded-sm px-2 bg-stone-900 outline-1 outline-stone-700 outline hover:bg-stone-100 hover:text-stone-900 cursor-pointer ease-in-out duration-150`,
         recordsClass: ``,
-        element: `list-none rounded-sm outline-yellow-500 outline-1 hover:outline ease-in-out duration-150 delay-150`,
+        element: `list-none rounded-sm outline-yellow-500 outline-1 hover:outline ease-in-out duration-150 delay-50`,
         title: `p-2 flex items-center justify-between text-base`,
     }
 
