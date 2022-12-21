@@ -7,10 +7,15 @@ export default function TransactionModal({ state, close }) {
         state.data.map((value, i) => {
             return (
                 <li
-                    className="mx-auto my-2 h-10 w-10 border border-stone-700 rounded-full overflow-clip"
+                    className="mx-auto h-15 w-15 rounded-sm border border-stone-800 overflow-clip"
                     key={i}
                 >
-                    <img id="img" src={`./images/nft-${value}.png`} height="50" width="50" />
+                    <img
+                        //id="img"
+                        src={`./images/items/item-${value}.png`}
+                        height="100"
+                        width="100"
+                    />
                 </li>
             )
         }) || null

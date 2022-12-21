@@ -16,8 +16,7 @@ export default function Home() {
 
     const tokenAddress =
         chainId in contractAddresses ? contractAddresses[chainId]["ExoticToken"][0] : null
-    const nftAddress =
-        chainId in contractAddresses ? contractAddresses[chainId]["ExoticNFT"][0] : null
+    const nftAddress = chainId in contractAddresses ? contractAddresses[chainId]["ExoNFT"][0] : null
     const gachaAddress =
         chainId in contractAddresses ? contractAddresses[chainId]["Gachapon"][0] : null
 
@@ -43,8 +42,8 @@ export default function Home() {
     }
 
     async function getNftBalancesOf(address) {
-        const addrArray = [...Array(3)].map((_) => address)
-        const idArray = [...Array(3)].map((_, i) => i)
+        const addrArray = [...Array(12)].map((_) => address)
+        const idArray = [...Array(12)].map((_, i) => i)
         const txResponse = await runContractFunction({
             params: {
                 abi: nftAbi,
@@ -89,7 +88,7 @@ export default function Home() {
     }
 
     function updateUI() {
-        updateNftBalances(gachaAddress)
+        updateNftBalances(account)
         updateTokenBalance(account)
     }
 
@@ -97,7 +96,7 @@ export default function Home() {
         if (gachaAddress) {
             updateUI()
         }
-    }, [isWeb3Enabled, account])
+    }, [isWeb3Enabled, account, chainId])
 
     return (
         <div className="">

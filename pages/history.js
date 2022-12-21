@@ -6,6 +6,7 @@ import { ethers } from "ethers"
 
 import gachaAbi from "../lib/gachaAbi.json"
 import contractAddresses from "../lib/contractAddresses.json"
+import networkConfig from "../lib/networkConfig.json"
 
 export default function History() {
     const { runContractFunction } = useWeb3Contract()
@@ -21,9 +22,11 @@ export default function History() {
         const contract = new ethers.Contract(gachaAddress, gachaAbi, web3)
         //const filter = contract.filters.PullFulfilled(null, account)
 
-        const fromBlockNum = 1
         const toBlockNum = await web3.getBlockNumber()
+        const fromBlockNum = toBlockNum - 1000 //networkConfig[chainId].deployBlock || 1
         const addressOwner = account
+
+        console.log(fromBlockNum + " - " + toBlockNum)
 
         const filter = {
             address: gachaAddress,
@@ -76,15 +79,21 @@ export default function History() {
         return parsedEvents
     }
 
+    function handeRefreshClick() {
+        if (isWeb3Enabled) {
+            getEvents()
+        }
+    }
+
     useEffect(() => {
         if (isWeb3Enabled) {
             getEvents()
         }
-    }, [isWeb3Enabled, account])
+    }, [isWeb3Enabled, account, chainId])
 
     return (
         <div className="">
-            <Records events={events} />
+            <Records events={events} refresh={() => handeRefreshClick()} />
         </div>
     )
 }

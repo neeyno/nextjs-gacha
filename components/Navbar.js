@@ -33,7 +33,7 @@ export default function Navbar() {
                 styles.header
             } ${menuOpen ? `${styles.open}` : ""}`}
         >
-            <div className="z-30" title="NFT gacha">
+            <div className="z-30" title="NFT game">
                 <Link href="/">
                     <a
                         className={`tracking-widest text-xl font-bold my-auto px-3 py-1 ease-in-out duration-150 text-stone-100 ${
@@ -44,7 +44,7 @@ export default function Navbar() {
                             closeMenu()
                         }}
                     >
-                        NFT gacha
+                        NFT game
                     </a>
                 </Link>
             </div>

@@ -1,7 +1,8 @@
 {
     "5": {
         "chainName": "Goerli",
-        "vrfCoordinatorV2": "0x2ca8e0c643bde4c2e08ab1fa0da3401adad7734d"
+        "vrfCoordinatorV2": "0x2ca8e0c643bde4c2e08ab1fa0da3401adad7734d",
+        "deployBlock": 8174264
     },
     "134": {
         "blockExplorerUrl": "https://explorer-mainnet.maticvigil.com/",
@@ -10,11 +11,13 @@
         "currencyName": "MATIC",
         "currencySymbol": "MATIC",
         "rpcUrl": "https://rpc-mainnet.maticvigil.com/",
-        "wrapped": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270"
+        "wrapped": "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
+        "deployBlock": 1
     },
     "31337": {
         "chainName": "Localhost",
-        "chainId": 31337
+        "chainId": 31337,
+        "deployBlock": 1
     },
     "80001": {
         "blockExplorerUrl": "https://mumbai.polygonscan.com/",
@@ -23,6 +26,7 @@
         "currencyName": "MATIC",
         "currencySymbol": "MATIC",
         "rpcUrl": "https://rpc-mumbai.matic.today/",
-        "vrfCoordinatorV2": "0x7a1BaC17Ccc5b313516C5E16fb24f7659aA5ebed"
+        "vrfCoordinatorV2": "0x7a1BaC17Ccc5b313516C5E16fb24f7659aA5ebed",
+        "deployBlock": 29962951
     }
 }
