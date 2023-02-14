@@ -1,4 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h3 align="center">NFT game app</h3>
+  <p align="center">
+    <a href="https://steep-boat-4957.on.fleek.co/" target="_blank">
+        <strong>| Live DEMO </strong>
+    </a>
+    <a href="https://github.com/neeyno/hh-nft-gacha-game/" target="_blank" >
+        <strong>| Smart Contracts </strong>
+    </a>
+    <a  href="https://github.com/neeyno/nextjs-gacha/" target="_blank">
+        <strong>| Front-end |</strong>
+    </a>
+ </p>
+ <hr/>
+
+## Description
+This repository contains the front-end of the NFT game app.\
+The NFT game is built on erc1155, Chainlink VRF, and "gacha"-mechanics. It features many collectible NFT items that can be obtained only through a gacha by making "pulls". To make a pull, the player has to spend some in-game tokens to get a random NFT. These NFTs are only available for a limited time and have tiers of rarity based on chance, with some appearing less frequently than others.
+
+## Requirements
+```bash
+git --version
+node --version
+```
 
 ## Getting Started
 

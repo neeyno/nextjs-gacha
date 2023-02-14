@@ -11,8 +11,8 @@ function MyApp({ Component, pageProps }) {
         <>
             <MoralisProvider initializeOnMount={false}>
                 <Head>
-                    <title>Decentralized NFT gacha App</title>
-                    <meta name="description" content="Decentralized NFT gacha App" />
+                    <title>Decentralized NFT game App</title>
+                    <meta name="description" content="Decentralized NFT game App" />
                     <link rel="icon" href="./nft-icon.png" />
                     {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />

@@ -2,7 +2,7 @@
 //import { useWeb3Contract, useMoralis } from "react-moralis"
 //import { ethers } from "ethers"
 
-//import contractAddresses from "../lib/contractAddresses.json"
+import GameInfo from "../components/GameInfo"
 
 export default function Info() {
     // const { error, runContractFunction } = useWeb3Contract()
@@ -17,8 +17,8 @@ export default function Info() {
     //     chainId in contractAddresses ? contractAddresses[chainId]["Gachapon"][0] : null
 
     return (
-        <div>
-            <div className="text-stone-100">{"No info..."}</div>
+        <div className="">
+            <GameInfo />
         </div>
     )
 }
